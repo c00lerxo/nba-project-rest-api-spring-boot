@@ -24,8 +24,6 @@ public class Player {
     private String name;
 
     @Column
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate birthday;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
