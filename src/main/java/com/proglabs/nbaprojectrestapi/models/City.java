@@ -12,7 +12,8 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = City.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Entity
 public class City {
 
     @Id
