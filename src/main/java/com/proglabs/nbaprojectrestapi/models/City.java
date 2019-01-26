@@ -12,17 +12,9 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = City.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})@Entity
-public class City {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column
-    private int id;
-
-    @Column
-    private String name;
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Entity
+public class City extends AbstractModel {
 
     @Column
     private String description;
@@ -38,22 +30,6 @@ public class City {
     public City(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {

@@ -13,15 +13,7 @@ import javax.persistence.*;
         scope = Arena.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Arena {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @Column
-    private String name;
+public class Arena extends AbstractModel {
 
     @Column
     private String description;
@@ -38,22 +30,6 @@ public class Arena {
     public Arena(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {

@@ -13,15 +13,7 @@ import javax.persistence.*;
         scope = Coach.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Coach {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @Column
-    private String name;
+public class Coach extends AbstractModel {
 
     @Column
     private String experience;
@@ -39,22 +31,6 @@ public class Coach {
         this.name = name;
         this.experience = experience;
         this.championships = championships;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getExperience() {

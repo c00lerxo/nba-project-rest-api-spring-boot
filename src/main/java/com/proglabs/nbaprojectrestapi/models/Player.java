@@ -3,7 +3,6 @@ package com.proglabs.nbaprojectrestapi.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 import javax.persistence.*;
@@ -12,16 +11,9 @@ import javax.persistence.*;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Player.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})@Entity
-public class Player {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @Column
-    private String name;
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Entity
+public class Player extends AbstractModel {
 
     @Column
     private LocalDate birthday;
@@ -50,22 +42,6 @@ public class Player {
         this.ppg = ppg;
         this.apg = apg;
         this.rpg = rpg;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public LocalDate getBirthday() {
