@@ -14,6 +14,7 @@ import java.util.Set;
         scope = City.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+
 public class City extends AbstractModel {
 
     @Column
