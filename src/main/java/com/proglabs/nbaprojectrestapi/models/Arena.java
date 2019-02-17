@@ -13,16 +13,24 @@ import javax.persistence.*;
         scope = Arena.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Arena extends AbstractModel {
+public class Arena {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    protected int id;
+
+    @Column
+    protected String name;
 
     @Column
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy="arena")
     @JoinColumn(name = "Team_ID", referencedColumnName = "id")
     private Team team;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private City city;
 
     public Arena() {}
@@ -30,6 +38,22 @@ public class Arena extends AbstractModel {
     public Arena(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public int getId() {
+        return  id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

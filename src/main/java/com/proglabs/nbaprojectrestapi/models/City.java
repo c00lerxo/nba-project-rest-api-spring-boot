@@ -15,15 +15,23 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 
-public class City extends AbstractModel {
+public class City {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    protected int id;
+
+    @Column
+    protected String name;
 
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "city")//, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Team> teams = new HashSet<Team>();
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "city")//, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Arena> arenas = new HashSet<Arena>();
 
     public City() {}
@@ -31,6 +39,22 @@ public class City extends AbstractModel {
     public City(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public int getId() {
+        return  id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

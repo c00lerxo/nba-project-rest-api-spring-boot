@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.joda.time.LocalDate;
 
+import javax.annotation.processing.Generated;
 import javax.persistence.*;
 
 @JsonIdentityInfo(
@@ -13,12 +14,20 @@ import javax.persistence.*;
         scope = Player.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Player extends AbstractModel {
+public class Player {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    protected int id;
+
+    @Column
+    protected String name;
 
     @Column
     private LocalDate birthday;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Team team;
 
     @Column
@@ -36,12 +45,27 @@ public class Player extends AbstractModel {
     public Player() {}
 
     public Player(String name, LocalDate birthday, String nationality, float ppg, float apg, float rpg) {
-        this.name = name;
         this.birthday = birthday;
         this.nationality = nationality;
         this.ppg = ppg;
         this.apg = apg;
         this.rpg = rpg;
+    }
+
+    public int getId() {
+        return  id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getBirthday() {

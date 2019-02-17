@@ -4,6 +4,7 @@ package com.proglabs.nbaprojectrestapi.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -13,7 +14,15 @@ import javax.persistence.*;
         scope = Coach.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Coach extends AbstractModel {
+public class Coach {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    protected int id;
+
+    @Column
+    protected String name;
 
     @Column
     private String experience;
@@ -21,16 +30,31 @@ public class Coach extends AbstractModel {
     @Column
     private int championships;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "Team_ID", referencedColumnName = "id")
     private Team team;
 
     public Coach() {}
 
     public Coach(String name, String experience, int championships) {
-        this.name = name;
         this.experience = experience;
         this.championships = championships;
+    }
+
+    public int getId() {
+        return  id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getExperience() {

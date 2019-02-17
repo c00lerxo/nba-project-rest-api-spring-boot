@@ -3,6 +3,8 @@ package com.proglabs.nbaprojectrestapi.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,15 +16,24 @@ import java.util.Set;
         scope = Team.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Team extends AbstractModel {
+public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    protected int id;
+
+    @Column
+    protected String name;
 
     @Column
     private int championships;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "team")//, fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Player> players = new HashSet<Player>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy="team")
     @JoinColumn(name = "Coach_ID", referencedColumnName = "id")
     private Coach coach;
 
@@ -30,7 +41,7 @@ public class Team extends AbstractModel {
     @JoinColumn(name = "Arena_ID", referencedColumnName = "id")
     private Arena arena;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private City city;
 
     public Team() {}
@@ -38,6 +49,22 @@ public class Team extends AbstractModel {
     public Team(String name, int championships) {
         this.name = name;
         this.championships = championships;
+    }
+
+    public int getId() {
+        return  id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getChampionships() {
